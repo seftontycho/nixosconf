@@ -10,7 +10,7 @@
     home-manager,
     ...
   } @ inputs: {
-    nixosConfigurations.default = nixpkgs.lib.nixosSystem {
+    nixosConfigurations.sjtdesktop = nixpkgs.lib.nixosSystem {
       specialArgs = {inherit inputs;};
       modules = [
         ./nixos/configuration.nix
@@ -24,6 +24,8 @@
             };
           };
         }
+
+        ./modules
       ];
     };
   };

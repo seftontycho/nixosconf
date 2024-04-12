@@ -1,0 +1,6 @@
+# default.nix
+{...}: {
+  imports = [
+    ./nvidia
+  ];
+}

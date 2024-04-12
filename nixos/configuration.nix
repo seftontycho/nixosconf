@@ -11,6 +11,8 @@
     ./hardware-configuration.nix
   ];
 
+  nvidia.enable = true;
+
   networking.hostName = "sjtdesktop"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
