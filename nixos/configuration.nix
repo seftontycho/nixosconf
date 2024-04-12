@@ -1,14 +1,15 @@
 # Edit this configuration file to define what should be installed on
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
-
-{ config, pkgs, ... }:
-
 {
-  imports =
-    [ # Include the results of the hardware scan.
-      ./hardware-configuration.nix
-    ];
+  config,
+  pkgs,
+  ...
+}: {
+  imports = [
+    # Include the results of the hardware scan.
+    ./hardware-configuration.nix
+  ];
 
   networking.hostName = "sjtdesktop"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
@@ -48,7 +49,7 @@
   users.users.seftontycho = {
     isNormalUser = true;
     description = "Sefton de Pledge";
-    extraGroups = [ "networkmanager" "wheel" "video" "audio" "tss" ];
+    extraGroups = ["networkmanager" "wheel" "video" "audio" "tss"];
     shell = pkgs.fish;
     packages = with pkgs; [
       spotify
@@ -90,8 +91,7 @@
   # Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
   system.stateVersion = "23.11"; # Did you read the comment?
-  
-  
+
   # Enable Display Manager
   services.greetd = {
     enable = true;
@@ -112,32 +112,31 @@
   boot.plymouth = {
     enable = true;
     font = "${pkgs.jetbrains-mono}/share/fonts/truetype/JetBrainsMono-Regular.ttf";
-    themePackages = [ pkgs.catppuccin-plymouth ];
+    themePackages = [pkgs.catppuccin-plymouth];
     theme = "catppuccin-macchiato";
   };
-  
+
   # Fonts
   fonts.packages = with pkgs; [
     jetbrains-mono
     nerd-font-patcher
   ];
-  
+
   programs.hyprland = {
     enable = true;
-    enableNvidiaPatches = true;
     xwayland.enable = true;
   };
-  
+
   environment.sessionVariables = {
     WLR_NO_HARDWARE_CURSORS = "1";
     NIXOS_OZONE_WL = "1";
   };
-  
+
   # Nix Configuration
   nix.settings = {
-    experimental-features = [ "nix-command" "flakes" ];    
+    experimental-features = ["nix-command" "flakes"];
   };
-  
+
   services.xserver = {
     enable = true;
     videoDrivers = ["nvidia"];
@@ -148,7 +147,7 @@
     driSupport = true;
     driSupport32Bit = true;
   };
-  
+
   hardware.nvidia = {
     modesetting.enable = true;
     open = false;
@@ -178,7 +177,7 @@
   security.pam.services.swaylock = {};
 
   services.flatpak.enable = true;
-  
+
   environment.systemPackages = with pkgs; [
     flatpak
     gnome.gnome-software
@@ -193,7 +192,7 @@
     networkmanagerapplet
 
     figlet
-    
+
     kitty
 
     starship
@@ -203,7 +202,7 @@
 
     vulkan-tools
     vulkan-loader
-       
+
     numix-icon-theme-circle
     colloid-icon-theme
     catppuccin-gtk
@@ -230,7 +229,7 @@
     xdg-utils
     wtype
     wlrctl
-    hyprpicker 
+    hyprpicker
     avizo
     wlogout
     gifsicle
@@ -241,10 +240,10 @@
 
     git
   ];
-  
+
   xdg.portal.enable = true;
-  xdg.portal.extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
-  
+  xdg.portal.extraPortals = [pkgs.xdg-desktop-portal-gtk];
+
   sound.enable = true;
   security.rtkit.enable = true;
   services.pipewire = {
@@ -283,9 +282,9 @@
 
   # Override packages
   nixpkgs.config.packageOverrides = pkgs: {
-    colloid-icon-theme = pkgs.colloid-icon-theme.override { colorVariants = ["teal"]; };
+    colloid-icon-theme = pkgs.colloid-icon-theme.override {colorVariants = ["teal"];};
     catppuccin-gtk = pkgs.catppuccin-gtk.override {
-      accents = [ "teal" ]; # You can specify multiple accents here to output multiple themes 
+      accents = ["teal"]; # You can specify multiple accents here to output multiple themes
       size = "standard";
       variant = "macchiato";
     };
@@ -294,6 +293,4 @@
       withTTS = true;
     };
   };
-  
-  
 }
